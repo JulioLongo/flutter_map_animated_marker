@@ -68,7 +68,9 @@ class _AnimatedMarkerLayerState
     if (!map.pixelBounds.containsPartialBounds(Bounds(sw, ne))) {
       return const SizedBox();
     }
-    final pos = pxPoint.subtract(map.pixelOrigin);
+
+    final pos = subtract(pxPoint.x, pxPoint.y, map.pixelOrigin);
+
     final markerWidget = (marker.rotate ?? widget.options.rotate ?? false)
         // Counter rotated marker to the map rotation
         ? Transform.rotate(
@@ -91,6 +93,10 @@ class _AnimatedMarkerLayerState
         )
       ],
     ));
+  }
+
+  Point<double> subtract(first, second, Point<num> other) {
+    return Point(first - other.x, second - other.y);
   }
 
   @override
